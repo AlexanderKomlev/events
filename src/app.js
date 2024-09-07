@@ -6,7 +6,7 @@ export default class Game {
   }
 
   init() {
-    const item = document.createElement("div")
+    const item = document.createElement("div");
     item.classList.add("item");
 
     for (let i = 0; i < 16; i++) {
@@ -19,7 +19,9 @@ export default class Game {
 
     let currentIndex = 0;
     this._gameplay = setInterval(() => {
-      if (!Array.from(items).some((item) => item.classList.contains("clicked"))) {
+      if (
+        !Array.from(items).some((item) => item.classList.contains("clicked"))
+      ) {
         this.missClick();
         if (this.fail()) {
           return;
@@ -48,7 +50,6 @@ export default class Game {
     this.missClickCount++;
     console.log(this.missClickCount);
   }
-
 
   fail() {
     if (this.missClickCount === 5) {

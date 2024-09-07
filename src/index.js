@@ -28,6 +28,5 @@ document.addEventListener("DOMContentLoaded", () => {
       game.click(event.target);
       score.scoreUp(event);
     }
-
   });
 });

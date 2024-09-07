@@ -1,7 +1,7 @@
-import path from 'path';
-import HtmlWebPackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import webpack from 'webpack';
+import path from "path";
+import HtmlWebPackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import webpack from "webpack";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 const common = {
@@ -15,7 +15,7 @@ const common = {
     compress: true,
   },
   output: {
-    path: path.resolve(path.resolve(), 'dist'),
+    path: path.resolve(path.resolve(), "dist"),
     publicPath: "",
   },
   module: {
@@ -24,7 +24,7 @@ const common = {
         test: /\.m?js/,
         resolve: {
           fullySpecified: false,
-        }
+        },
       },
       {
         test: /\.js$/,
