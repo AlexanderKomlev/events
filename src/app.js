@@ -1,62 +1,31 @@
-export default class Game {
-  constructor(element) {
-    this._element = element;
-    this._gameplay = null;
-    this.missClickCount = -1;
-  }
+import Game from "./game";
+import Score from "./score";
 
-  init() {
-    const item = document.createElement("div");
-    item.classList.add("item");
+document.addEventListener("DOMContentLoaded", () => {
+    const game = new Game(document.querySelector(".container"));
+    const score = new Score(document.querySelector(".score"));
+    window.game = game;
+    window.score = score;
 
-    for (let i = 0; i < 16; i++) {
-      this._element.appendChild(item.cloneNode());
-    }
-  }
+    game.init();
 
-  start() {
-    const items = this._element.querySelectorAll(".item");
+    document.querySelector(".start").addEventListener("click", () => {
+        game.start();
+    });
 
-    let currentIndex = 0;
-    this._gameplay = setInterval(() => {
-      if (
-        !Array.from(items).some((item) => item.classList.contains("clicked"))
-      ) {
-        this.missClick();
-        if (this.fail()) {
-          return;
+    document.querySelector(".stop").addEventListener("click", () => {
+        game.stop();
+    });
+
+    document.querySelector(".reset").addEventListener("click", () => {
+        game.stop();
+        score.reset();
+    });
+
+    document.querySelector(".container").addEventListener("click", (event) => {
+        if (event.target.classList.contains("active")) {
+            game.click(event.target);
+            score.scoreUp(event);
         }
-      } else {
-        items.forEach((item) => item.classList.remove("clicked"));
-      }
-      const index = Math.floor(Math.random() * items.length);
-      items[currentIndex].classList.remove("active");
-      items[index].classList.add("active");
-      currentIndex = index;
-    }, 1000);
-  }
-
-  stop() {
-    clearInterval(this._gameplay);
-    const items = this._element.querySelectorAll(".item");
-    items.forEach((item) => item.classList.remove("active"));
-  }
-
-  click(element) {
-    element.classList.add("clicked");
-  }
-
-  missClick() {
-    this.missClickCount++;
-    console.log(this.missClickCount);
-  }
-
-  fail() {
-    if (this.missClickCount === 5) {
-      this.missClickCount = -1;
-      this.stop();
-      alert("You lose!");
-      return true;
-    }
-  }
-}
+    });
+});
